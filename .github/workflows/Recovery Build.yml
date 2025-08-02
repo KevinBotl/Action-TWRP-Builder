@@ -116,8 +116,18 @@ jobs:
 
     - name: Repo Sync
       run: |
+        # 補 local_manifests 加 vendor/omni
+        mkdir -p .repo/local_manifests
+        cat > .repo/local_manifests/roomservice.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <project name="omnirom/android_vendor_omni" path="vendor/omni" revision="android-12.1" />
+</manifest>
+EOF
         repo sync -j$(nproc --all) --force-sync
+        ls -la vendor/omni/config
       working-directory: workspace
+
 
     - name: Clone device tree
       run: |
