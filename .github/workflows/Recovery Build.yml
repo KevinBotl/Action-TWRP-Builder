@@ -115,16 +115,9 @@ jobs:
       id: pwd
     - name: Repo Sync
       run: |
-        mkdir -p .repo/local_manifests
-        cat > .repo/local_manifests/roomservice.xml <<EOF
-        <?xml version="1.0" encoding="UTF-8"?>
-        <manifest>
-          <project name="TeamWin/android_vendor_twrp" path="vendor/twrp" revision="android-12.1" remote="github"/>
-        </manifest>
-        EOF
         repo sync -j$(nproc --all) --force-sync
-        ls -la vendor/twrp/build
       working-directory: workspace
+
 
 
     - name: Clone device tree
